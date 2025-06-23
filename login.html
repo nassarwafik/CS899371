@@ -1,1 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل الدخول - علم الحاسوب</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+    }
+    footer {
+      background-color: #343a40;
+      color: white;
+      padding: 20px 0;
+      margin-top: auto;
+    }
+    footer a {
+      color: #ccc;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ✅ Header -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">💻 علم الحاسوب</a>
+  </div>
+</nav>
+
+<!-- ✅ Login Form -->
+<div class="container">
+  <div class="login-box">
+    <h3 class="mb-4 text-center">🔐 دخول الطالب</h3>
+    <div class="mb-3">
+      <label for="username" class="form-label">اسم المستخدم</label>
+      <input type="text" class="form-control" id="username" placeholder="أدخل اسم المستخدم">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">كلمة المرور</label>
+      <input type="password" class="form-control" id="password" placeholder="أدخل كلمة المرور">
+    </div>
+    <button class="btn btn-primary w-100" onclick="login()">دخول</button>
+    <p class="text-danger mt-3 text-center" id="error-msg"></p>
+  </div>
+</div>
+
+<!-- ✅ Footer -->
+<footer class="mt-5">
+  <div class="container text-center">
+    <p>© 2025 جميع الحقوق محفوظة - موقع تعليم علم الحاسوب</p>
+    <p>📧 تواصل معنا: <a href="mailto:example@email.com">example@email.com</a></p>
+  </div>
+</footer>
+
+<script>
+  function login() {
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value.trim();
+
+    const validUser = "student";
+    const validPass = "cs2025";
+
+    if (user === validUser && pass === validPass) {
+      window.location.href = "index.html";
+    } else {
+      document.getElementById("error-msg").textContent = "⚠️ اسم المستخدم أو كلمة المرور غير صحيحة!";
+    }
+  }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 
