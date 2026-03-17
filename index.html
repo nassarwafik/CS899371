@@ -2,443 +2,1004 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>تعلم علم الحاسوب - نموذج 899371</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body {
-      background-color: #f8f9fa;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    :root {
+      --primary:#f0b429;
+      --primary-dark:#d4941a;
+      --accent:#00d4aa;
+      --accent-blue:#3b82f6;
+      --accent-orange:#f59e0b;
+      --accent-red:#ef4444;
+      --accent-purple:#8b5cf6;
+      --accent-cyan:#06b6d4;
+      --bg:#0a0f1e;
+      --bg-2:#0f1729;
+      --bg-card:#131d35;
+      --bg-hover:#1a2640;
+      --text:#e2e8f0;
+      --text-muted:#94a3b8;
+      --border:rgba(255,255,255,0.08);
+      --border-accent:rgba(240,180,41,0.28);
+      --shadow:0 10px 30px rgba(0,0,0,0.35);
+      --shadow-gold:0 10px 30px rgba(240,180,41,0.15);
+      --radius:18px;
+      --radius-sm:12px;
+      --font-main:'Tajawal','Cairo',sans-serif;
     }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      font-family:var(--font-main);
+      background:var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    body.light-mode {
+      --bg:#f7f9fc;
+      --bg-2:#ffffff;
+      --bg-card:#ffffff;
+      --bg-hover:#f6f8fc;
+      --text:#0f1729;
+      --text-muted:#475569;
+      --border:rgba(15,23,41,0.08);
+      --border-accent:rgba(240,180,41,0.35);
+      --shadow:0 12px 30px rgba(15,23,41,0.08);
+      --shadow-gold:0 12px 30px rgba(240,180,41,0.12);
+    }
+    a { text-decoration:none; }
+    img { max-width:100%; }
+    .container {
+      width:min(1180px, calc(100% - 32px));
+      margin-inline:auto;
+    }
+    .progress-bar-reading {
+      position:fixed; top:0; right:0; height:3px; width:0;
+      background:linear-gradient(90deg,var(--accent),var(--primary));
+      z-index:2000;
+    }
+    .navbar-custom {
+      position:fixed; top:0; right:0; left:0; z-index:1200;
+      background:rgba(10,15,30,0.85);
+      backdrop-filter:blur(18px);
+      border-bottom:1px solid var(--border);
+    }
+    body.light-mode .navbar-custom { background:rgba(255,255,255,0.85); }
+    .nav-wrap {
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding:14px 0;
+    }
+    .nav-brand {
+      display:flex; align-items:center; gap:10px;
+      color:var(--primary); font-weight:800; font-size:1.1rem;
+    }
+    .brand-icon {
+      width:38px; height:38px; border-radius:10px;
+      display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--primary),var(--accent));
+      color:#000; font-weight:900;
+      box-shadow:var(--shadow-gold);
+    }
+    .nav-links {
+      display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+    }
+    .nav-link-custom {
+      color:var(--text-muted);
+      padding:8px 14px;
+      border-radius:999px;
+      font-size:.92rem;
+      transition:.25s ease;
+    }
+    .nav-link-custom:hover, .nav-link-custom.active {
+      color:var(--primary);
+      background:rgba(240,180,41,0.1);
+    }
+    .theme-toggle {
+      width:40px; height:40px; border:none; border-radius:12px;
+      background:var(--bg-card); color:var(--text-muted);
+      border:1px solid var(--border); cursor:pointer;
+      transition:.25s ease;
+    }
+    .theme-toggle:hover { color:var(--primary); border-color:var(--border-accent); }
+
+    .hero {
+      position:relative;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,212,170,.08), transparent 25%),
+        radial-gradient(circle at 80% 15%, rgba(240,180,41,.09), transparent 30%),
+        radial-gradient(circle at 70% 80%, rgba(59,130,246,.08), transparent 28%),
+        linear-gradient(135deg,#0a0f1e 0%, #0e1831 50%, #0a1326 100%);
+      overflow:hidden;
+    }
+    body.light-mode .hero {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(0,212,170,.10), transparent 25%),
+        radial-gradient(circle at 80% 15%, rgba(240,180,41,.15), transparent 30%),
+        radial-gradient(circle at 70% 80%, rgba(59,130,246,.10), transparent 28%),
+        linear-gradient(135deg,#f7f9fc 0%, #eef3fb 50%, #f6f8fc 100%);
+    }
+    .hero-grid {
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(240,180,41,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(240,180,41,0.04) 1px, transparent 1px);
+      background-size:52px 52px;
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,.65), transparent);
+    }
+    .hero-content {
+      position:relative; z-index:2;
+      display:grid; grid-template-columns:1.1fr .9fr;
+      gap:34px; align-items:center;
+      padding-top:110px; padding-bottom:60px;
+    }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 16px; border-radius:999px;
+      color:var(--primary); background:rgba(240,180,41,.1);
+      border:1px solid rgba(240,180,41,.25);
+      font-weight:700; margin-bottom:20px;
+    }
+    .hero-title {
+      margin:0 0 18px; line-height:1.2;
+      font-size:clamp(2.2rem,5vw,4.1rem); font-weight:900;
+    }
+    .hero-title span {
+      background:linear-gradient(135deg,var(--primary),var(--accent));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      background-clip:text; color:transparent;
+    }
+    .hero-text {
+      margin:0;
+      color:var(--text-muted);
+      font-size:1.07rem;
+      line-height:1.95;
+      max-width:650px;
+    }
+    .hero-stats {
+      display:flex; flex-wrap:wrap; gap:18px; margin-top:28px;
+    }
+    .stat-card {
+      min-width:130px;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:14px 18px;
+      box-shadow:var(--shadow);
+    }
+    .stat-num {
+      display:block; font-size:1.8rem; font-weight:900; color:var(--primary);
+    }
+    .stat-label { color:var(--text-muted); font-size:.84rem; }
+    .hero-cta {
+      display:flex; flex-wrap:wrap; gap:12px; margin-top:30px;
+    }
+    .btn-primary-custom, .btn-outline-custom {
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:14px 24px; border-radius:14px;
+      font-weight:800; transition:.25s ease;
+    }
+    .btn-primary-custom {
+      background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+      color:#000; box-shadow:var(--shadow-gold);
+    }
+    .btn-primary-custom:hover { transform:translateY(-2px); color:#000; }
+    .btn-outline-custom {
+      color:var(--text); border:1px solid var(--border); background:var(--bg-card);
+    }
+    .btn-outline-custom:hover {
+      color:var(--primary); border-color:var(--border-accent); transform:translateY(-2px);
+    }
+    .hero-panel {
+      position:relative;
+      background:rgba(19,29,53,.78);
+      border:1px solid var(--border);
+      border-radius:26px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    body.light-mode .hero-panel { background:rgba(255,255,255,.9); }
+    .hero-panel::before {
+      content:"";
+      position:absolute; inset:auto -40px -40px auto;
+      width:160px; height:160px; border-radius:50%;
+      background:radial-gradient(circle, rgba(240,180,41,.18), transparent 65%);
+    }
+    .panel-title {
+      font-size:1.1rem; font-weight:800; margin-bottom:18px; color:var(--text);
+    }
+    .topic-list {
+      display:grid; grid-template-columns:repeat(2,1fr); gap:12px;
+    }
+    .topic-item {
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:14px 12px;
+      display:flex; align-items:center; gap:10px;
+      color:var(--text); font-weight:700;
+    }
+    .topic-item i {
+      width:38px; height:38px; border-radius:12px; display:grid; place-items:center;
+      color:#000; background:linear-gradient(135deg,var(--primary),var(--accent));
+      flex-shrink:0;
+    }
+
+    .section { padding:82px 0; }
+    .section-alt { background:var(--bg-2); }
+    .section-header {
+      text-align:center; margin-bottom:34px;
+    }
+    .section-badge {
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 16px; border-radius:999px;
+      background:rgba(59,130,246,.10); color:var(--accent-blue);
+      border:1px solid rgba(59,130,246,.22); font-weight:700; margin-bottom:14px;
+    }
+    .section-title {
+      margin:0 0 14px;
+      font-size:clamp(1.7rem,3vw,2.5rem); font-weight:900;
+    }
+    .section-desc {
+      margin:0 auto; max-width:760px; color:var(--text-muted); line-height:1.9;
+      font-size:1.02rem;
+    }
+    .search-box {
+      max-width:700px; margin:0 auto 34px; position:relative;
+    }
+    .search-input {
+      width:100%; border-radius:16px; border:1px solid var(--border);
+      background:var(--bg-card); color:var(--text);
+      padding:16px 52px 16px 18px; font-size:1rem; outline:none;
+      transition:.25s ease;
+      font-family:var(--font-main);
+    }
+    .search-input:focus { border-color:var(--border-accent); box-shadow:0 0 0 4px rgba(240,180,41,.08); }
+    .search-icon {
+      position:absolute; right:18px; top:50%; transform:translateY(-50%);
+      color:var(--text-muted);
+    }
+    .grid {
+      display:grid;
+      grid-template-columns:repeat(12,1fr);
+      gap:20px;
+    }
+    .grid > div { grid-column:span 12; }
+    .col-lg-6 { grid-column:span 12; }
+    .col-xl-4 { grid-column:span 12; }
+    @media (min-width: 780px) { .col-lg-6 { grid-column:span 6; } }
+    @media (min-width: 1100px) { .col-xl-4 { grid-column:span 4; } }
+
     .lesson-card {
-      margin-bottom: 20px;
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:22px;
+      height:100%;
+      box-shadow:var(--shadow);
+      transition:.28s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    .lesson-card::before {
+      content:"";
+      position:absolute; inset:0 auto auto 0;
+      width:100%; height:3px;
+      background:var(--card-accent, linear-gradient(90deg,var(--primary),var(--accent)));
+    }
+    .lesson-card:hover {
+      transform:translateY(-6px);
+      border-color:var(--border-accent);
+      box-shadow:0 18px 40px rgba(0,0,0,.28);
+    }
+    .card-blue   { --card-accent:linear-gradient(90deg,var(--accent-blue),#60a5fa); }
+    .card-green  { --card-accent:linear-gradient(90deg,var(--accent),#34d399); }
+    .card-orange { --card-accent:linear-gradient(90deg,var(--primary),var(--accent-orange)); }
+    .card-purple { --card-accent:linear-gradient(90deg,var(--accent-purple),#a78bfa); }
+    .card-cyan   { --card-accent:linear-gradient(90deg,var(--accent-cyan),#67e8f9); }
+    .card-red    { --card-accent:linear-gradient(90deg,var(--accent-red),#fb7185); }
+    .lesson-top {
+      display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px;
+    }
+    .lesson-icon {
+      width:54px; height:54px; border-radius:16px;
+      display:grid; place-items:center;
+      background:rgba(240,180,41,.12);
+      color:var(--primary); font-size:1.25rem;
+      border:1px solid rgba(240,180,41,.15);
+      flex-shrink:0;
+    }
+    .lesson-badge {
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:7px 12px; border-radius:999px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--border);
+      color:var(--text-muted);
+      font-size:.82rem; font-weight:700;
+    }
+    .lesson-title {
+      margin:0 0 10px; font-size:1.22rem; font-weight:800; line-height:1.5;
+    }
+    .lesson-desc {
+      margin:0 0 18px; color:var(--text-muted); line-height:1.8; min-height:58px;
+    }
+    .lesson-actions {
+      display:grid; grid-template-columns:repeat(2,1fr); gap:10px;
+    }
+    .action-btn {
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      border:1px solid var(--border); border-radius:14px;
+      padding:12px 14px; background:rgba(255,255,255,.02);
+      color:var(--text); font-weight:700; transition:.22s ease;
+      min-height:52px;
+    }
+    .action-btn:hover {
+      color:var(--primary); border-color:var(--border-accent);
+      background:rgba(240,180,41,.05); transform:translateY(-2px);
+    }
+    .action-btn span { line-height:1.5; }
+
+    .editor-frame {
+      background:var(--bg-card);
+      border:1px solid var(--border);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+    .editor-head {
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:16px 18px;
+      border-bottom:1px solid var(--border);
+      background:rgba(255,255,255,.02);
+    }
+    .editor-head h3 {
+      margin:0; font-size:1.06rem; font-weight:800;
+    }
+    .editor-meta { color:var(--text-muted); font-size:.92rem; }
+    iframe {
+      display:block; width:100%; height:620px; border:none; background:#fff;
     }
     footer {
-      background-color: #343a40;
-      color: white;
-      padding: 20px 0;
+      background:#050912; border-top:1px solid var(--border); padding:34px 0;
     }
-    footer a {
-      color: #ccc;
-      text-decoration: none;
+    body.light-mode footer { background:#eef3fb; }
+    .footer-box {
+      display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+      color:var(--text-muted);
     }
-    footer a:hover {
-      text-decoration: underline;
+    .footer-brand {
+      color:var(--primary); font-weight:800; display:flex; align-items:center; gap:10px;
+    }
+    .footer-brand i {
+      width:38px; height:38px; border-radius:10px; display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--primary),var(--accent)); color:#000;
+    }
+    .scroll-top {
+      position:fixed; left:22px; bottom:22px; width:46px; height:46px;
+      border:none; border-radius:14px; cursor:pointer;
+      background:linear-gradient(135deg,var(--primary),var(--primary-dark));
+      color:#000; box-shadow:var(--shadow-gold);
+      display:none; z-index:1300;
+    }
+    .scroll-top.show { display:block; }
+
+    @media (max-width: 992px) {
+      .hero-content { grid-template-columns:1fr; padding-top:120px; }
+    }
+    @media (max-width: 640px) {
+      .container { width:min(100% - 20px, 1180px); }
+      .nav-wrap { flex-wrap:wrap; }
+      .hero-stats { gap:10px; }
+      .stat-card { min-width:calc(50% - 10px); }
+      .topic-list { grid-template-columns:1fr; }
+      .lesson-actions { grid-template-columns:1fr; }
+      .footer-box { flex-direction:column; align-items:flex-start; }
     }
   </style>
 </head>
 <body>
+  <div class="progress-bar-reading" id="readingBar"></div>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">💻 علم الحاسوب</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="mainNavbar">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link active" href="#">الرئيسية</a></li>
-        <li class="nav-item"><a class="nav-link" href="lessons.html">الوحدات التعليمية</a></li>
-        <li class="nav-item"><a class="nav-link" href="links.html">روابط مهمة</a></li>
-        <li class="nav-item"><a class="nav-link" href="Mylessons.html">تلخيص الحصص</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+  <nav class="navbar-custom">
+    <div class="container nav-wrap">
+      <a class="nav-brand" href="#top">
+        <span class="brand-icon"><i class="fa-solid fa-laptop-code"></i></span>
+        <span>تعلم علم الحاسوب</span>
+      </a>
 
-<div class="container" id="lessons">
-  <h1 class="text-center mb-4">الوحدات التعليمية - نموذج 899371</h1>
-  <div class="row">
-    
-<!-- مدخل لعلم الحاسوب -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>🔰 مدخل لعلم الحاسوب</strong></h5>
+      <div class="nav-links">
+        <a class="nav-link-custom active" href="#top"><i class="fa-solid fa-house"></i> الرئيسية</a>
+        <a class="nav-link-custom" href="#chapters"><i class="fa-solid fa-book-open"></i> الفصول</a>
+        <a class="nav-link-custom" href="#resources"><i class="fa-solid fa-link"></i> الموارد</a>
+        <a class="nav-link-custom" href="#editor"><i class="fa-solid fa-terminal"></i> المحرر</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="تبديل النمط">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
     </div>
-    <div class="card-body bg-light">
-      <p class="card-text">اكتشف أبرز المجالات الممتعة في البرمجة التي ستلهمك لتصبح مبرمجًا محترفًا.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="https://www.youtube.com/watch?v=v7HFSZCgnrs" target="_blank" class="btn btn-outline-primary w-100">🤖 عالم الذكاء الاصطناعي</a>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-grid"></div>
+    <div class="container hero-content">
+      <div>
+        <div class="hero-badge">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>منهج 899371 — واجهة مرتبة بأسلوب حديث</span>
         </div>
-        <div class="col-6">
-          <a href="https://youtu.be/Q3gKb2moRWg?si=Isg9-HqwdvDLwooB" target="_blank" class="btn btn-outline-success w-100">🎮 عالم الألعاب الإلكترونية</a>
+        <h1 class="hero-title">بوابة <span>تعليم علم الحاسوب</span> للطلاب</h1>
+        <p class="hero-text">
+          صفحة رئيسية منسقة من جديد بروح تصميم ملف الشبكات: ألوان احترافية، بطاقات منظمة، وصول سريع إلى الدروس،
+          التلخيصات، الوظائف، وامتحانات البجروت، مع قسم مخصص للمحرر البرمجي.
+        </p>
+
+        <div class="hero-stats">
+          <div class="stat-card">
+            <span class="stat-num">12</span>
+            <span class="stat-label">فصلًا دراسيًا</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">48</span>
+            <span class="stat-label">رابطًا للفصول</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">2</span>
+            <span class="stat-label">أقسام تمهيدية</span>
+          </div>
         </div>
-        <div class="col-6">
-          <a href="https://youtu.be/Uzf-K7UtD78?si=11yHrO92pcTUwqIJ" target="_blank" class="btn btn-outline-info w-100">🦿 عالم الروبوتات</a>
+
+        <div class="hero-cta">
+          <a href="#chapters" class="btn-primary-custom"><i class="fa-solid fa-rocket"></i> ابدأ التصفح</a>
+          <a href="#editor" class="btn-outline-custom"><i class="fa-solid fa-code"></i> افتح محرر C#</a>
         </div>
-        <div class="col-6">
-          <a href="https://www.youtube.com/watch?v=5yAbVkIMl_M" target="_blank" class="btn btn-outline-danger w-100">🛡️ عالم البرمجة</a>
+      </div>
+
+      <div class="hero-panel">
+        <div class="panel-title">أهم محاور المنهج</div>
+        <div class="topic-list">
+          <div class="topic-item"><i class="fa-solid fa-print"></i><span>الطباعة والمتغيرات</span></div>
+          <div class="topic-item"><i class="fa-solid fa-code-branch"></i><span>الجمل الشرطية والعوامل</span></div>
+          <div class="topic-item"><i class="fa-solid fa-arrows-rotate"></i><span>الحلقات التكرارية</span></div>
+          <div class="topic-item"><i class="fa-solid fa-gears"></i><span>الدوال</span></div>
+          <div class="topic-item"><i class="fa-solid fa-table-cells"></i><span>المصفوفات</span></div>
+          <div class="topic-item"><i class="fa-solid fa-cubes"></i><span>الفئات والكائنات</span></div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </header>
 
-<!-- عالم البرمجة -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>🌍 عالم البرمجة</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <p class="card-text">موارد لتجربة البرمجة عبر أدوات ممتعة وتفاعلية.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="https://www.transum.org/software/Logo/" target="_blank" class="btn btn-outline-success w-100">🐢 برمجة السلحفاة</a>
-        </div>
-        <div class="col-6">
-         <a href="https://stacks.co.il/login" target="_blank" class="btn btn-outline-warning w-100">🎮 المحرر البرمجي stacks</a>
-        </div>
-        <div class="col-6">
-          <a href="https://campus.gov.il/" target="_blank" class="btn btn-outline-primary w-100">💻 Campus IL </a>
-        </div>
-        <div class="col-6">
-          <a href="https://cscircles.cemc.uwaterloo.ca/java_visualize/" target="_blank" class="btn btn-outline-secondary w-100">🧪 Code Visualizer </a>
-        </div>
+  <section class="section section-alt" id="resources">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fa-solid fa-star"></i> البداية والموارد</span>
+        <h2 class="section-title">أقسام تمهيدية وروابط مساعدة</h2>
+        <p class="section-desc">وصول سريع إلى المصادر العامة التي تساعد الطالب على الاستكشاف والتجربة قبل الدخول إلى الفصول التفصيلية.</p>
+      </div>
+      <div class="grid">
+        
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-blue">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-lightbulb"></i></div>
+            <span class="lesson-badge">قسم تمهيدي</span>
+          </div>
+          <h3 class="lesson-title">🔰 مدخل لعلم الحاسوب</h3>
+          <p class="lesson-desc">اكتشف أبرز المجالات الممتعة في البرمجة التي ستلهمك لتصبح مبرمجًا محترفًا.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="https://www.youtube.com/watch?v=v7HFSZCgnrs" target="_blank" rel="noopener">
+              <span>🤖 عالم الذكاء الاصطناعي</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://youtu.be/Q3gKb2moRWg?si=Isg9-HqwdvDLwooB" target="_blank" rel="noopener">
+              <span>🎮 عالم الألعاب الإلكترونية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://youtu.be/Uzf-K7UtD78?si=11yHrO92pcTUwqIJ" target="_blank" rel="noopener">
+              <span>🦿 عالم الروبوتات</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://www.youtube.com/watch?v=5yAbVkIMl_M" target="_blank" rel="noopener">
+              <span>🛡️ عالم البرمجة</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-green">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-code"></i></div>
+            <span class="lesson-badge">قسم تمهيدي</span>
+          </div>
+          <h3 class="lesson-title">🌍 عالم البرمجة</h3>
+          <p class="lesson-desc">موارد لتجربة البرمجة عبر أدوات ممتعة وتفاعلية.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="https://www.transum.org/software/Logo/" target="_blank" rel="noopener">
+              <span>🐢 برمجة السلحفاة</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://stacks.co.il/login" target="_blank" rel="noopener">
+              <span>🎮 المحرر البرمجي stacks</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://campus.gov.il/" target="_blank" rel="noopener">
+              <span>💻 Campus IL</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://cscircles.cemc.uwaterloo.ca/java_visualize/" target="_blank" rel="noopener">
+              <span>🧪 Code Visualizer</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
-    
-<!-- الفصل 1 -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>📘 الفصل 1: أوامر الطباعة والمتغيرات</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <p class="card-text">شرح مبسط لـ أوامر الطباعة والمتغيرات مع تمارين وأمثلة عملية.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="pdf/Part1 - PrintVariables.pdf" class="btn btn-outline-dark w-100">📊 عرض الشرائح</a>
-        </div>
-        <div class="col-6">
-          <a href="Summaries/Part1 - Summary.pdf" class="btn btn-outline-primary w-100">📝 تلخيص الدرس</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=68594157a2313cb7d3e127f5" class="btn btn-outline-success w-100">👨‍💻 وظيفة برمجية</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=68570eff1c9c4b6a4f6775c4" class="btn btn-outline-danger w-100">🏠 وظيفة بيتية</a>
-        </div>
+  <section class="section" id="chapters">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fa-solid fa-book"></i> المنهج الكامل</span>
+        <h2 class="section-title">الفصول التعليمية</h2>
+        <p class="section-desc">تم ترتيب جميع الفصول داخل بطاقات حديثة بنفس الهوية البصرية، مع الحفاظ على جميع الروابط الأصلية كما هي.</p>
+      </div>
+
+      <div class="search-box">
+        <input id="searchInput" class="search-input" type="text" placeholder="ابحث عن فصل أو موضوع مثل: الدوال، المصفوفات، الفئات...">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      </div>
+
+      <div class="grid" id="chaptersGrid">
+        
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-orange">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-keyboard"></i></div>
+            <span class="lesson-badge">الفصل 1</span>
+          </div>
+          <h3 class="lesson-title">أوامر الطباعة والمتغيرات</h3>
+          <p class="lesson-desc">شرح مبسط لـ أوامر الطباعة والمتغيرات مع تمارين وأمثلة عملية.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="pdf/Part1 - PrintVariables.pdf">
+              <span>📊 عرض الشرائح</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="Summaries/Part1 - Summary.pdf">
+              <span>📝 تلخيص الدرس</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=68594157a2313cb7d3e127f5" target="_blank" rel="noopener">
+              <span>👨‍💻 وظيفة برمجية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=68570eff1c9c4b6a4f6775c4" target="_blank" rel="noopener">
+              <span>🏠 وظيفة بيتية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-purple">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-code-branch"></i></div>
+            <span class="lesson-badge">الفصل 2</span>
+          </div>
+          <h3 class="lesson-title">العوامل والتعبيرات المنطقية</h3>
+          <p class="lesson-desc">شرح مبسط لـ العوامل والتعبيرات المنطقية مع تمارين وأمثلة عملية.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="pdf/Part2 - OperatorsLogics.pdf">
+              <span>📊 عرض الشرائح</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="Summaries/Part2 - Summary.pdf">
+              <span>📝 تلخيص الدرس</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=68cad33969b7a35e0ba373b4" target="_blank" rel="noopener">
+              <span>👨‍💻 وظيفة برمجية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=685a923f960d8969270ebb8e" target="_blank" rel="noopener">
+              <span>🏠 وظيفة بيتية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-cyan">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-square-root-variable"></i></div>
+            <span class="lesson-badge">الفصل 3</span>
+          </div>
+          <h3 class="lesson-title">مكتبة الرياضيات</h3>
+          <p class="lesson-desc">شرح مبسط لـ مكتبة الرياضيات مع تمارين وأمثلة عملية.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="pdf/Part3 - MathAndRandom.pdf">
+              <span>📊 عرض الشرائح</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="Summaries/Part3 - Summary.pdf">
+              <span>📝 تلخيص الدرس</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=685d68d83343a927bdf9fb00" target="_blank" rel="noopener">
+              <span>👨‍💻 وظيفة برمجية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=685f74e1f16e8b56de263c55" target="_blank" rel="noopener">
+              <span>🏠 وظيفة بيتية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-red">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-diamond-turn-right"></i></div>
+            <span class="lesson-badge">الفصل 4</span>
+          </div>
+          <h3 class="lesson-title">الجمل الشرطية</h3>
+          <p class="lesson-desc">شرح مبسط لـ الجمل الشرطية مع تمارين وأمثلة عملية.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="pdf/Part4 - IF Condition.pdf">
+              <span>📊 عرض الشرائح</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="Summaries/Part4 - Summary.pdf">
+              <span>📝 تلخيص الدرس</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=686a688a8cff3c2f937b9a7a" target="_blank" rel="noopener">
+              <span>👨‍💻 وظيفة برمجية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=686b7497fd53eed9c2fa9cb7" target="_blank" rel="noopener">
+              <span>🏠 وظيفة بيتية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-blue">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-repeat"></i></div>
+            <span class="lesson-badge">الفصل 5</span>
+          </div>
+          <h3 class="lesson-title">حلقات for</h3>
+          <p class="lesson-desc">شرح مبسط لـ حلقات for مع تمارين وأمثلة عملية.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="pdf/Part5- For Loop.pdf">
+              <span>📊 عرض الشرائح</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="Summaries/Part5 -Summary.pdf">
+              <span>📝 تلخيص الدرس</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=687fe23af962ddf0287461c2" target="_blank" rel="noopener">
+              <span>👨‍💻 وظيفة برمجية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=68810677e28038c01fc40c03" target="_blank" rel="noopener">
+              <span>🏠 وظيفة بيتية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-green">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
+            <span class="lesson-badge">الفصل 6</span>
+          </div>
+          <h3 class="lesson-title">حلقات while</h3>
+          <p class="lesson-desc">شرح مبسط لـ حلقات while مع تمارين وأمثلة عملية.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="pdf/Part6- While Loop.pdf">
+              <span>📊 عرض الشرائح</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="Summaries/Part6 -Summary.pdf">
+              <span>📝 تلخيص الدرس</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=68828f0df962ddf0287462f7" target="_blank" rel="noopener">
+              <span>👨‍💻 وظيفة برمجية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=68824d311ce5321405316325" target="_blank" rel="noopener">
+              <span>🏠 وظيفة بيتية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-orange">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-gears"></i></div>
+            <span class="lesson-badge">الفصل 7</span>
+          </div>
+          <h3 class="lesson-title">الدوال</h3>
+          <p class="lesson-desc">شرح مبسط لـ الدوال مع تمارين وأمثلة عملية.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="pdf/Part7- Methods.pdf">
+              <span>📊 عرض الشرائح</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="Summaries/Part7 -Summary.pdf">
+              <span>📝 تلخيص الدرس</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=68839cdea565d394690f8f2e" target="_blank" rel="noopener">
+              <span>👨‍💻 وظيفة برمجية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=68839c4af962ddf028746345" target="_blank" rel="noopener">
+              <span>🏠 وظيفة بيتية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-purple">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-font"></i></div>
+            <span class="lesson-badge">الفصل 8</span>
+          </div>
+          <h3 class="lesson-title">السلاسل النصية</h3>
+          <p class="lesson-desc">شرح مبسط لـ السلاسل النصية مع تمارين وأمثلة عملية.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="pdf/Part8- Strings.pdf">
+              <span>📊 عرض الشرائح</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="Summaries/Part8 -Summary.pdf">
+              <span>📝 تلخيص الدرس</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=6886035e09550e086cc0b3a7" target="_blank" rel="noopener">
+              <span>👨‍💻 وظيفة برمجية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=688602c0169e7e411c4cd9ba" target="_blank" rel="noopener">
+              <span>🏠 وظيفة بيتية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-cyan">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-table-cells"></i></div>
+            <span class="lesson-badge">الفصل 9</span>
+          </div>
+          <h3 class="lesson-title">مصفوفة أحادية البعد</h3>
+          <p class="lesson-desc">شرح مبسط لـ مصفوفة أحادية البعد مع تمارين وأمثلة عملية.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="pdf/Part9- Arrays.pdf">
+              <span>📊 عرض الشرائح</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="Summaries/Part9 - Arrays.pdf">
+              <span>📝 تلخيص الدرس</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=6886821609550e086cc0b3ba" target="_blank" rel="noopener">
+              <span>👨‍💻 وظيفة برمجية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=6886818da62b0ed0c1a85059" target="_blank" rel="noopener">
+              <span>🏠 وظيفة بيتية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-red">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-table-cells-large"></i></div>
+            <span class="lesson-badge">الفصل 10</span>
+          </div>
+          <h3 class="lesson-title">مصفوفة ثنائية البعد</h3>
+          <p class="lesson-desc">شرح مبسط لـ مصفوفة ثنائية البعد مع تمارين وأمثلة عملية.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="pdf/Part10- Array2D.pdf">
+              <span>📊 عرض الشرائح</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="Summaries/Part10 - Array2D.pdf">
+              <span>📝 تلخيص الدرس</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=6887b8e827b954c009a9833f" target="_blank" rel="noopener">
+              <span>👨‍💻 وظيفة برمجية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=6887b7a1937a9f7b9db54557" target="_blank" rel="noopener">
+              <span>🏠 وظيفة بيتية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-blue">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-cubes"></i></div>
+            <span class="lesson-badge">الفصل 11</span>
+          </div>
+          <h3 class="lesson-title">الفئات (Classes)</h3>
+          <p class="lesson-desc">شرح مبسط لـ الفئات (Classes) مع تمارين وأمثلة عملية.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="pdf/Part11- Classes.pdf">
+              <span>📊 عرض الشرائح</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="Summaries/Part11- Classes - Summary.pdf">
+              <span>📝 تلخيص الدرس</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=688cd985a198005431a25496" target="_blank" rel="noopener">
+              <span>👨‍💻 وظيفة برمجية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="https://exam-generator.com/quiz?id=688d21aacacb4a0a795735f5" target="_blank" rel="noopener">
+              <span>🏠 وظيفة بيتية</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-lg-6 col-xl-4">
+        <article class="lesson-card card-green">
+          <div class="lesson-top">
+            <div class="lesson-icon"><i class="fa-solid fa-file-lines"></i></div>
+            <span class="lesson-badge">الفصل 12</span>
+          </div>
+          <h3 class="lesson-title">امتحانات بجروت</h3>
+          <p class="lesson-desc">شرح مبسط لـ امتحانات بجروت مع تمارين وأمثلة عملية.</p>
+          <div class="lesson-actions">
+            
+            <a class="action-btn" href="pdf/bagrut_2025.pdf">
+              <span>📝 الامتحان الأول 2025</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="pdf/bagrut_2024.pdf">
+              <span>📝 الامتحان الثاني 2024</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="pdf/bagrut_2023.pdf">
+              <span>📝 الامتحان الثالث 2023</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+            <a class="action-btn" href="pdf/bagrut_2022.pdf">
+              <span>📝 الامتحان الرابع 2022</span>
+              <i class="fa-solid fa-arrow-up-left-from-square"></i>
+            </a>
+          </div>
+        </article>
+      </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<!-- الفصل 2 -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>📘 الفصل 2: العوامل والتعبيرات المنطقية</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <p class="card-text">شرح مبسط لـ العوامل والتعبيرات المنطقية مع تمارين وأمثلة عملية.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="pdf/Part2 - OperatorsLogics.pdf" class="btn btn-outline-dark w-100">📊 عرض الشرائح</a>
+  <section class="section section-alt" id="editor">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge"><i class="fa-solid fa-terminal"></i> التطبيق العملي</span>
+        <h2 class="section-title">محرر C# المدمج</h2>
+        <p class="section-desc">قسم مخصص للتجربة السريعة وكتابة الأكواد وتشغيلها مباشرة من داخل الصفحة.</p>
+      </div>
+
+      <div class="editor-frame">
+        <div class="editor-head">
+          <h3><i class="fa-solid fa-code"></i> C# Editor</h3>
+          <div class="editor-meta">dotnetfiddle widget</div>
         </div>
-        <div class="col-6">
-          <a href="Summaries/Part2 - Summary.pdf" class="btn btn-outline-primary w-100">📝 تلخيص الدرس</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=68cad33969b7a35e0ba373b4" class="btn btn-outline-success w-100">👨‍💻 وظيفة برمجية</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=685a923f960d8969270ebb8e" class="btn btn-outline-danger w-100">🏠 وظيفة بيتية</a>
-        </div>
+        <iframe src="https://dotnetfiddle.net/Widget/rEsllH" title="C# Editor"></iframe>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<!-- الفصل 3 -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>📘 الفصل 3: مكتبة الرياضيات</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <p class="card-text">شرح مبسط لـ مكتبة الرياضيات مع تمارين وأمثلة عملية.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="pdf/Part3 - MathAndRandom.pdf" class="btn btn-outline-dark w-100">📊 عرض الشرائح</a>
-        </div>
-        <div class="col-6">
-          <a href="Summaries/Part3 - Summary.pdf" class="btn btn-outline-primary w-100">📝 تلخيص الدرس</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=685d68d83343a927bdf9fb00" class="btn btn-outline-success w-100">👨‍💻 وظيفة برمجية</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=685f74e1f16e8b56de263c55" class="btn btn-outline-danger w-100">🏠 وظيفة بيتية</a>
-        </div>
+  <footer>
+    <div class="container footer-box">
+      <div class="footer-brand">
+        <i class="fa-solid fa-laptop-code"></i>
+        <span>موقع تعليم علم الحاسوب</span>
       </div>
+      <div>© 2025 جميع الحقوق محفوظة</div>
+      <div>📧 <a href="mailto:NassarWafik@gmail.com" style="color:var(--primary);">NassarWafik@gmail.com</a></div>
     </div>
-  </div>
-</div>
+  </footer>
 
-<!-- الفصل 4 -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>📘 الفصل 4: الجمل الشرطية</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <p class="card-text">شرح مبسط لـ الجمل الشرطية مع تمارين وأمثلة عملية.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="pdf/Part4 - IF Condition.pdf" class="btn btn-outline-dark w-100">📊 عرض الشرائح</a>
-        </div>
-        <div class="col-6">
-          <a href="Summaries/Part4 - Summary.pdf" class="btn btn-outline-primary w-100">📝 تلخيص الدرس</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=686a688a8cff3c2f937b9a7a" class="btn btn-outline-success w-100">👨‍💻 وظيفة برمجية</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=686b7497fd53eed9c2fa9cb7" class="btn btn-outline-danger w-100">🏠 وظيفة بيتية</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  <button class="scroll-top" id="scrollTopBtn" aria-label="العودة للأعلى">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
 
-<!-- الفصل 5 -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>📘 الفصل 5: حلقات for</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <p class="card-text">شرح مبسط لـ حلقات for مع تمارين وأمثلة عملية.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="pdf/Part5- For Loop.pdf" class="btn btn-outline-dark w-100">📊 عرض الشرائح</a>
-        </div>
-        <div class="col-6">
-          <a href="Summaries/Part5 -Summary.pdf" class="btn btn-outline-primary w-100">📝 تلخيص الدرس</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=687fe23af962ddf0287461c2" class="btn btn-outline-success w-100">👨‍💻 وظيفة برمجية</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=68810677e28038c01fc40c03" class="btn btn-outline-danger w-100">🏠 وظيفة بيتية</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+  <script>
+    const readingBar = document.getElementById('readingBar');
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    const themeToggle = document.getElementById('themeToggle');
+    const searchInput = document.getElementById('searchInput');
+    const chapterCards = Array.from(document.querySelectorAll('#chaptersGrid .lesson-card'));
 
-<!-- الفصل 6 -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>📘 الفصل 6: حلقات while</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <p class="card-text">شرح مبسط لـ حلقات while مع تمارين وأمثلة عملية.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="pdf/Part6- While Loop.pdf" class="btn btn-outline-dark w-100">📊 عرض الشرائح</a>
-        </div>
-        <div class="col-6">
-          <a href="Summaries/Part6 -Summary.pdf" class="btn btn-outline-primary w-100">📝 تلخيص الدرس</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=68828f0df962ddf0287462f7" class="btn btn-outline-success w-100">👨‍💻 وظيفة برمجية</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=68824d311ce5321405316325" class="btn btn-outline-danger w-100">🏠 وظيفة بيتية</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    window.addEventListener('scroll', () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? (window.scrollY / maxScroll) * 100 : 0;
+      readingBar.style.width = progress + '%';
+      scrollTopBtn.classList.toggle('show', window.scrollY > 400);
+    });
 
-<!-- الفصل 7 -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>📘 الفصل 7: الدوال</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <p class="card-text">شرح مبسط لـ الدوال مع تمارين وأمثلة عملية.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="pdf/Part7- Methods.pdf" class="btn btn-outline-dark w-100">📊 عرض الشرائح</a>
-        </div>
-        <div class="col-6">
-          <a href="Summaries/Part7 -Summary.pdf" class="btn btn-outline-primary w-100">📝 تلخيص الدرس</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=68839cdea565d394690f8f2e" class="btn btn-outline-success w-100">👨‍💻 وظيفة برمجية</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=68839c4af962ddf028746345" class="btn btn-outline-danger w-100">🏠 وظيفة بيتية</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-<!-- الفصل 8 -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>📘 الفصل 8: السلاسل النصية</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <p class="card-text">شرح مبسط لـ السلاسل النصية مع تمارين وأمثلة عملية.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="pdf/Part8- Strings.pdf" class="btn btn-outline-dark w-100">📊 عرض الشرائح</a>
-        </div>
-        <div class="col-6">
-          <a href="Summaries/Part8 -Summary.pdf" class="btn btn-outline-primary w-100">📝 تلخيص الدرس</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=6886035e09550e086cc0b3a7" class="btn btn-outline-success w-100">👨‍💻 وظيفة برمجية</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=688602c0169e7e411c4cd9ba" class="btn btn-outline-danger w-100">🏠 وظيفة بيتية</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    const savedTheme = localStorage.getItem('cs-theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-mode');
+      themeToggle.innerHTML = '<i class="fa-solid fa-sun"></i>';
+    }
 
-<!-- الفصل 9 -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>📘 الفصل 9: مصفوفة أحادية البعد</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <p class="card-text">شرح مبسط لـ مصفوفة أحادية البعد مع تمارين وأمثلة عملية.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="pdf/Part9- Arrays.pdf" class="btn btn-outline-dark w-100">📊 عرض الشرائح</a>
-        </div>
-        <div class="col-6">
-          <a href="Summaries/Part9 - Arrays.pdf" class="btn btn-outline-primary w-100">📝 تلخيص الدرس</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=6886821609550e086cc0b3ba" class="btn btn-outline-success w-100">👨‍💻 وظيفة برمجية</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=6886818da62b0ed0c1a85059" class="btn btn-outline-danger w-100">🏠 وظيفة بيتية</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      const isLight = document.body.classList.contains('light-mode');
+      localStorage.setItem('cs-theme', isLight ? 'light' : 'dark');
+      themeToggle.innerHTML = isLight
+        ? '<i class="fa-solid fa-sun"></i>'
+        : '<i class="fa-solid fa-moon"></i>';
+    });
 
-<!-- الفصل 10 -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>📘 الفصل 10: مصفوفة ثنائية البعد</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <p class="card-text">شرح مبسط لـ مصفوفة ثنائية البعد مع تمارين وأمثلة عملية.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="pdf/Part10- Array2D.pdf  " class="btn btn-outline-dark w-100">📊 عرض الشرائح</a>
-        </div>
-        <div class="col-6">
-          <a href="Summaries/Part10 - Array2D.pdf" class="btn btn-outline-primary w-100">📝 تلخيص الدرس</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=6887b8e827b954c009a9833f" class="btn btn-outline-success w-100">👨‍💻 وظيفة برمجية</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=6887b7a1937a9f7b9db54557" class="btn btn-outline-danger w-100">🏠 وظيفة بيتية</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- الفصل 11 -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>📘 الفصل 11: الفئات (Classes)</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <p class="card-text">شرح مبسط لـ الفئات (Classes) مع تمارين وأمثلة عملية.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="pdf/Part11- Classes.pdf" class="btn btn-outline-dark w-100">📊 عرض الشرائح</a>
-        </div>
-        <div class="col-6">
-          <a href="Summaries/Part11- Classes - Summary.pdf" class="btn btn-outline-primary w-100">📝 تلخيص الدرس</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=688cd985a198005431a25496" class="btn btn-outline-success w-100">👨‍💻 وظيفة برمجية</a>
-        </div>
-        <div class="col-6">
-          <a href="https://exam-generator.com/quiz?id=688d21aacacb4a0a795735f5" class="btn btn-outline-danger w-100">🏠 وظيفة بيتية</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- الفصل 12 -->
-<div class="col-md-6 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>📘 الفصل 12: امتحانات بجروت</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <p class="card-text">شرح مبسط لـ امتحانات بجروت مع تمارين وأمثلة عملية.</p>
-      <div class="row g-2">
-        <div class="col-6">
-          <a href="pdf/bagrut_2025.pdf" class="btn btn-outline-dark w-100">📝 الامتحان الأول 2025</a>
-        </div>
-        <div class="col-6">
-          <a href="pdf/bagrut_2024.pdf" class="btn btn-outline-primary w-100">📝 الامتحان الثاني 2024</a>
-        </div>
-        <div class="col-6">
-          <a href="pdf/bagrut_2023.pdf" class="btn btn-outline-success w-100">📝 الامتحان الثالث 2023</a>
-        </div>
-        <div class="col-6">
-          <a href="pdf/bagrut_2022.pdf" class="btn btn-outline-danger w-100">📝 الامتحان الرابع 2022</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-    <!-- C# Editor -->
-<div class="col-12 lesson-card">
-  <div class="card shadow-lg border-0 h-100">
-    <div class="card-header bg-light border-bottom">
-      <h5 class="mb-0 text-dark"><strong>💻 C# Editor</strong></h5>
-    </div>
-    <div class="card-body bg-light">
-      <iframe width="100%" height="600" src="https://dotnetfiddle.net/Widget/rEsllH" frameborder="0"></iframe>
-    </div>
-  </div>
-</div>
-
-   
-  </div>
-</div>
-
-<footer class="mt-5">
-  <div class="container text-center">
-    <p>© 2025 جميع الحقوق محفوظة - موقع تعليم علم الحاسوب</p>
-    <p id="contact">📧 تواصل معنا: <a href="mailto:NassarWafik@gmail.com">NassarWafik@gmail.com</a></p>
-  </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    searchInput.addEventListener('input', (e) => {
+      const query = e.target.value.trim().toLowerCase();
+      chapterCards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        const wrapper = card.parentElement;
+        wrapper.style.display = text.includes(query) ? '' : 'none';
+      });
+    });
+  </script>
 </body>
 </html>
